@@ -19,7 +19,6 @@ const store = new Vuex.Store({
             commit('SET_LOADED')
         },
         fetchStarships ({ commit }) {
-            console.log(swapi)
             return axios.get(swapi + 'starships/')
                 .then((response) => {
                     commit('SET_STARSHIPS_LIST', response.data)
