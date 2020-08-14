@@ -68,7 +68,8 @@ export default {
             currentSortCol: null,
             currentSortIndexCol: null,
             checkedItems: [],
-            datasets: []
+            datasets: [],
+            busy: false
         }
     },
     beforeDestroyed () {
@@ -127,7 +128,8 @@ export default {
         infiniteScroll () {
             const el = this.$refs.vscroll.$el
             const heightCalc = Math.abs(el.scrollTop - (el.scrollHeight - el.clientHeight))
-            if (!heightCalc && this.currentNextUrl !== null) {
+            if (!this.busy && heightCalc <= 100 && this.currentNextUrl !== null) {
+                this.busy = true
                 const activeTab = this.tabs.filter((tab) => tab.active)[0].name.toLowerCase()
                 this.loadNewItems({ cur_next_url: this.currentNextUrl, cur_tab: activeTab })
                     .then(() => {
@@ -141,6 +143,7 @@ export default {
                             this.currentSchema.columns[this.currentSortIndexCol].sort === 'asc' ? 'desc' : 'asc'
                             this.handleSort(this.currentSortCol)
                         }
+                        this.busy = false
                     })
             }
         },
@@ -241,10 +244,11 @@ export default {
             display: grid;
             height: calc(100% - 70px);
             .vscroll {
-                height: 100%;
                 background: #eee;
                 overflow-anchor: none;
-                overflow: auto;
+                white-space:nowrap;
+                overflow: scroll;
+                -webkit-overflow-scrolling: touch;
             }
             .vscroll-holder {
                 table {
@@ -281,6 +285,9 @@ export default {
                     }
                 }
                 tbody {
+                    tr {
+                        max-height: 48px;
+                    }
                     td {
                         padding: 16px;
                         letter-spacing: 0.01em;
@@ -305,6 +312,15 @@ export default {
                                 vertical-align: middle;
                             }
                             input[type="checkbox"]:checked + label:before {
+                                content: '';
+                                text-align: center;
+                                background-image: url('../../assets/white-checkbox-checked.png');
+                                background-position: center;
+                                background-size: 55%;
+                                background-color: #1DB7C2;
+                                background-repeat: no-repeat;
+                            }
+                            input[type="checkbox"]:hover + label:before {
                                 content: '';
                                 text-align: center;
                                 background-image: url('../../assets/white-checkbox-checked.png');

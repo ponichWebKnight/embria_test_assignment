@@ -61,18 +61,20 @@ export default {
 
         updateWindow (e) {
             const visibleItemsCount = Math.ceil(
-                this.$el.clientHeight / this.itemHeight
+                (this.$el.clientHeight - this.itemHeight) / this.itemHeight
             )
             const totalScrollHeight = this.items.length * this.itemHeight
 
             const scrollTop = this.$el.scrollTop
-            const offset = 5
-            const firstVisibleIndex = Math.floor(scrollTop / this.itemHeight)
+            const offset = 3
+            const firstVisibleIndex = Math.floor((scrollTop - this.itemHeight) / this.itemHeight)
+            console.log(Math.floor((scrollTop - this.itemHeight) / this.itemHeight))
             const lastVisibleIndex = firstVisibleIndex + visibleItemsCount
             const firstCutIndex = Math.max(firstVisibleIndex - offset, 0)
             const lastCutIndex = lastVisibleIndex + offset
 
             this.visibleItems = this.items.slice(firstCutIndex, lastCutIndex)
+            console.log(this.visibleItems)
             this.topHeight = firstCutIndex * this.itemHeight
             this.bottomHeight = totalScrollHeight -
             this.visibleItems.length * this.itemHeight -

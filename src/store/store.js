@@ -20,7 +20,7 @@ const store = new Vuex.Store({
         },
         fetchStarships ({ commit }) {
             console.log(swapi)
-            return axios.get(swapi + 'starships')
+            return axios.get(swapi + 'starships/')
                 .then((response) => {
                     commit('SET_STARSHIPS_LIST', response.data)
                 })
@@ -47,7 +47,7 @@ const store = new Vuex.Store({
             commit('SET_STARSHIPS_SCHEMA', starshipsSchema)
         },
         fetchPlanets ({ commit }) {
-            return axios.get(swapi + 'planets')
+            return axios.get(swapi + 'planets/')
                 .then((response) => {
                     commit('SET_PLANETS_LIST', response.data)
                 })
@@ -59,7 +59,7 @@ const store = new Vuex.Store({
             commit('SET_PLANETS_SCHEMA', planetsSchema)
         },
         fetchPeople ({ commit }) {
-            return axios.get(swapi + 'people')
+            return axios.get(swapi + 'people/')
                 .then((response) => {
                     commit('SET_PEOPLE_LIST', response.data)
                 })
@@ -71,7 +71,8 @@ const store = new Vuex.Store({
             commit('SET_PEOPLE_SCHEMA', peopleSchema)
         },
         loadNewItems ({ commit }, data) {
-            return axios.get(data.cur_next_url)
+            const url = 'https:' + data.cur_next_url.split(':')[1]
+            return axios.get(url)
                 .then((response) => {
                     commit('UPDATE_LIST', { new_data: response.data, tab: data.cur_tab })
                 })
