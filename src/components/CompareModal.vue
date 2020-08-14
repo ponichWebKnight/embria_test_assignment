@@ -213,10 +213,8 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 50;
     }
     .modal {
-        z-index: 100;
         display: flex;
         flex-direction: row;
         &_wrapper {

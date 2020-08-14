@@ -288,6 +288,10 @@ export default {
                     tr {
                         max-height: 48px;
                     }
+                    tr.bordered {
+                        background-color: #F9FAFC;
+                        box-shadow: inset 0px 1px 0px #E6E7E9, inset 0px -1px 0px #E6E7E9;
+                    }
                     td {
                         padding: 16px;
                         letter-spacing: 0.01em;
@@ -311,16 +315,7 @@ export default {
                                 border: 2px solid #1DB7C2;
                                 vertical-align: middle;
                             }
-                            input[type="checkbox"]:checked + label:before {
-                                content: '';
-                                text-align: center;
-                                background-image: url('../../assets/white-checkbox-checked.png');
-                                background-position: center;
-                                background-size: 55%;
-                                background-color: #1DB7C2;
-                                background-repeat: no-repeat;
-                            }
-                            input[type="checkbox"]:hover + label:before {
+                            input[type="checkbox"]:checked + label:before, input[type="checkbox"]:hover + label:before {
                                 content: '';
                                 text-align: center;
                                 background-image: url('../../assets/white-checkbox-checked.png');
@@ -333,10 +328,6 @@ export default {
                         label {
                             margin-left: 3px;
                         }
-                    }
-                    tr.bordered {
-                        background-color: #F9FAFC;
-                        box-shadow: inset 0px 1px 0px #E6E7E9, inset 0px -1px 0px #E6E7E9;
                     }
                 }
             }
