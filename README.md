@@ -1,5 +1,7 @@
 # dashboard
 
+Проект является тестовым заданием для компании Embria.
+
 ## Project setup
 ```
 npm install
